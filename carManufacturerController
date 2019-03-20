@@ -1,0 +1,38 @@
+import java.util.Map;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.springframework.web.bind.annotation.RequestMapping;
+import com.thetaedge.utils.HelperUtils;
+
+@RequestMapping("car")
+
+public class carManufacturerController {
+
+@SuppressWarnings("unchecked")
+@RequestMapping(method = RequestMethod.GET, value = "/hello")
+public JSONArray getCarManufacturer() {
+
+	Map<String, String> car = HelperUtils.createHashMap();
+	car.put("PROTON", "SAGA");
+	car.put("PRODUA", "AXIA");
+	car.put("HONDA", "CIVIC");
+	car.put("TOYOTA", "VIOS");
+	
+	JSONArray carManufaturer = generateJSONArray(car, "manufacturer", "name");
+
+	return carManufaturer;
+}
+
+@SuppressWarnings("unchecked")
+public JSONArray generateJSONArray(Map<String, String> map, String keyFieldName, String valueFieldName) {
+
+	JSONArray arr = new JSONArray();
+	map.forEach((k, v) -> {
+		JSONObject obj = new JSONObject();
+		obj.put(keyFieldName, k);
+		obj.put(valueFieldName, v);
+		arr.add(obj);
+	});
+	return arr;
+    }	
+}
